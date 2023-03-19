@@ -1,6 +1,5 @@
 #!/bin/bash
 
 
-rm -rf ~/.config/nvim
-cp nvim/* ~/.config/nvim
+cp -r nvim ~/.config/
 cp .tmux.conf ~/.tmux.conf
