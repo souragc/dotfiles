@@ -70,11 +70,18 @@ require('lazy').setup({
     },
   },
 
-  { -- Theme inspired by Atom
-    'folke/tokyonight.nvim',
+  -- { -- Theme inspired by Atom
+  --   'folke/tokyonight.nvim',
+  --   priority = 1000,
+  --   config = function()
+  --     vim.cmd.colorscheme 'tokyonight-night'
+  --   end,
+  -- },
+  {
+    'ellisonleao/gruvbox.nvim',
     priority = 1000,
-    config = function()
-      vim.cmd.colorscheme 'tokyonight-night'
+    config = function ()
+      vim.cmd.colorscheme 'gruvbox'
     end,
   },
 
@@ -84,7 +91,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'tokyonight',
+        theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },
@@ -152,6 +159,8 @@ require('lazy').setup({
 
 -- Set highlight on search
 vim.o.hlsearch = false
+
+vim.o.background="dark"
 
 -- Make line numbers default
 vim.wo.number = true
