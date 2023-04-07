@@ -199,6 +199,6 @@ colors: *tokyo-night
 
 font:
   normal:
-    family: Hack
-    style: Regular
+    family: Hack Nerd Font
+    style: Regular 
   size: 10
