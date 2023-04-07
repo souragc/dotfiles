@@ -66,7 +66,7 @@ schemes:
 colors: *tokyo-night
 
 env:
-  TERM: tmux-256color
+  TERM: xterm-256color
 
 font:
   normal:
