@@ -31,14 +31,15 @@ return {
         dependencies = 'nvim-tree/nvim-web-devicons',
         config = function ()
             vim.opt.termguicolors = true;
-            require("bufferline").setup{}
+            require("bufferline").setup{
+                options = { mode = "tabs" }
+            }
         end,
     },
     {
         'folke/trouble.nvim',
         config = function()
             require("trouble").setup{}
-
         end,
     }
 }
