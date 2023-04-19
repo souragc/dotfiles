@@ -41,6 +41,12 @@ return {
         config = function()
             require("trouble").setup{}
         end,
+    },
+    {
+        "ggandor/leap.nvim",
+        config = function()
+            require("leap").add_default_mappings();
+        end,
     }
 }
 
