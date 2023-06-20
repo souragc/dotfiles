@@ -73,13 +73,13 @@ require('lazy').setup({
       },
     },
   },
-
-  { -- Theme inspired by Atom
-    'folke/tokyonight.nvim',
+  {
+    "ellisonleao/gruvbox.nvim", 
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'tokyonight-night'
+      vim.cmd.colorscheme 'gruvbox'
     end,
+
   },
 
   { -- Set lualine as statusline
@@ -88,7 +88,7 @@ require('lazy').setup({
     opts = {
       options = {
         icons_enabled = false,
-        theme = 'tokyonight',
+        theme = 'gruvbox',
         component_separators = '|',
         section_separators = '',
       },
@@ -265,10 +265,10 @@ vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { de
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 --
-require('nvim-treesitter.install').compilers = { 'clang++' }
+require('nvim-treesitter.install').compilers = { 'gcc' }
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
-  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'help', 'vim' },
+  ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vim' },
 
   -- Autoinstall languages that are not installed. Defaults to false (but you can change for yourself!)
   auto_install = false,
