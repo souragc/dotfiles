@@ -8,4 +8,4 @@ cp ./starship.toml ~/.config/starship.toml
 cp -r nvim ~/.config/
 cp .tmux.conf ~/.tmux.conf
 cp -r ./alacritty ~/.config/
-
+cp -r ./i3 ~/.config/i3
