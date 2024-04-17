@@ -1,3 +1,9 @@
+if vim.g.neovide then
+  -- Put anything you want to happen only in Neovide here
+  vim.o.guifont = "Hack NF:h9"
+  -- Set font sizes
+end
+
 -- See `:help mapleader`
 --  NOTE: Must happen before plugins are required (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
@@ -46,7 +52,11 @@ require('lazy').setup({
 
       -- Useful status updates for LSP
       -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-      { 'j-hui/fidget.nvim', tag = "legacy", opts = {}},
+      {
+        'j-hui/fidget.nvim',
+        tag = "legacy",
+        opts = {},
+      },
 
       -- Additional lua configuration, makes nvim stuff amazing!
       'folke/neodev.nvim',
@@ -59,7 +69,7 @@ require('lazy').setup({
   },
 
   -- Useful plugin to show you pending keybinds.
-  { 'folke/which-key.nvim', opts = {} },
+  { 'folke/which-key.nvim',          opts = {} },
   { -- Adds git releated signs to the gutter, as well as utilities for managing changes
     'lewis6991/gitsigns.nvim',
     opts = {
@@ -73,12 +83,13 @@ require('lazy').setup({
       },
     },
   },
-  { "catppuccin/nvim", 
-    name = "catppuccin",
+  {
+    "catppuccin/nvim",
     priority = 1000,
-    config = function ()
-      vim.cmd.colorscheme 'catppuccin'
-    end
+    config = function()
+      vim.cmd.colorscheme 'gruvbox'
+    end,
+
   },
   { -- Set lualine as statusline
     'nvim-lualine/lualine.nvim',
@@ -97,12 +108,14 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    main = "ibl",
-    opts = {},
+    opts = {
+      char = '┊',
+      show_trailing_blankline_indent = false,
+    },
   },
 
   -- "gc" to comment visual regions/lines
-  { 'numToStr/Comment.nvim', opts = {} },
+  { 'numToStr/Comment.nvim',         opts = {} },
 
   -- Fuzzy Finder (files, lsp, etc)
   { 'nvim-telescope/telescope.nvim', version = '*', dependencies = { 'nvim-lua/plenary.nvim' } },
@@ -261,7 +274,7 @@ vim.keymap.set('n', '<leader>fd', require('telescope.builtin').diagnostics, { de
 -- [[ Configure Treesitter ]]
 -- See `:help nvim-treesitter`
 --
-require('nvim-treesitter.install').compilers = { 'gcc' }
+require('nvim-treesitter.install').compilers = { 'clang' }
 require('nvim-treesitter.configs').setup {
   -- Add languages to be installed here that you want installed for treesitter
   ensure_installed = { 'c', 'cpp', 'go', 'lua', 'python', 'rust', 'tsx', 'typescript', 'vim' },
@@ -375,9 +388,9 @@ local on_attach = function(_, bufnr)
   vim.api.nvim_buf_create_user_command(bufnr, 'Format', function(_)
     vim.lsp.buf.format()
   end, { desc = 'Format current buffer with LSP' })
-  
+
   -- Disable inline error messages
-  vim.diagnostic.config({virtual_text = false})
+  vim.diagnostic.config({ virtual_text = false })
 end
 
 -- Enable the following language servers
@@ -386,11 +399,11 @@ end
 --  Add any additional override configuration in the following tables. They will be passed to
 --  the `settings` field of the server config. You must look up that documentation yourself.
 local servers = {
-  -- clangd = {},
-  -- gopls = {},
-  -- pyright = {},
-  -- rust_analyzer = {},
-  -- tsserver = {},
+  clangd = {},
+  gopls = {},
+  pyright = {},
+  rust_analyzer = {},
+  tsserver = {},
 
   lua_ls = {
     Lua = {
@@ -431,6 +444,19 @@ mason_lspconfig.setup_handlers {
 local cmp = require 'cmp'
 local luasnip = require 'luasnip'
 
+local lspkind = require("lspkind")
+lspkind.init({
+  symbol_map = {
+    Copilot = "",
+  },
+})
+
+
+require("copilot").setup({
+  suggestion = { enabled = false },
+  panel = { enabled = false },
+})
+
 luasnip.config.setup {}
 
 cmp.setup {
@@ -466,7 +492,15 @@ cmp.setup {
       end
     end, { 'i', 's' }),
   },
+  formatting = {
+    format = lspkind.cmp_format({
+      mode = "symbol",
+      max_width = 50,
+      symbol_map = { Copilot = "" }
+    })
+  },
   sources = {
+    { name = "copilot", group_index = 2 },
     { name = 'nvim_lsp' },
     { name = 'luasnip' },
   },
