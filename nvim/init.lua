@@ -87,7 +87,7 @@ require('lazy').setup({
     "catppuccin/nvim",
     priority = 1000,
     config = function()
-      vim.cmd.colorscheme 'gruvbox'
+      vim.cmd.colorscheme 'catppuccin'
     end,
 
   },
@@ -108,10 +108,7 @@ require('lazy').setup({
     'lukas-reineke/indent-blankline.nvim',
     -- Enable `lukas-reineke/indent-blankline.nvim`
     -- See `:help indent_blankline.txt`
-    opts = {
-      char = '┊',
-      show_trailing_blankline_indent = false,
-    },
+    main = "ibl", opts = {}
   },
 
   -- "gc" to comment visual regions/lines
