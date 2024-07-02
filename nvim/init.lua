@@ -15,6 +15,15 @@ vim.o.termguicolors = true
 vim.g.mapleader = " "
 vim.g.maplocalleader = " "
 vim.wo.relativenumber = true
+vim.bo.tabstop = 4
+vim.bo.shiftwidth = 4
+vim.bo.expandtab = true
+
+
+
+-- Enable line number:Lss
+vim.wo.number = true
+
 
 require("lazy").setup({
   "folke/which-key.nvim",
@@ -82,14 +91,26 @@ require("lazy").setup({
       vim.keymap.set('n', '<leader>t', vim.cmd.NvimTreeToggle)
     end,
   },
-
+  --- The Return of The Treesitter
+  {
+    "nvim-treesitter/nvim-treesitter",
+    build = ":TSUpdate",
+    config = function ()
+      local configs = require("nvim-treesitter.configs")
+      configs.setup({
+        ensure_installed = { "c", "lua", "vim", "vimdoc", "rust"},
+        sync_install = false,
+        highlight = { enable = true },
+        indent = { enable = true },  
+      })
+    end
+  },
 })
 
 -- LSP Configuration
 
 local servers = {
   clangd = {},
-  gopls = {},
   pyright = {},
   rust_analyzer = {},
   tsserver = {},
